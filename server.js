@@ -1,7 +1,11 @@
 // require() is the equivalent of 'import' in React and Angular
 const express = require('express');
+const connectDB = require('./config/db');
 
 const app = express();
+
+// Connect Database
+connectDB();
 
 app.get('/', (req, res) => 
     res.json({message: 'Welcome to the ContactKeeper API!'})
