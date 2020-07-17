@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
-const {check, validationResult} = require('express-validator/check');
+const {check, validationResult} = require('express-validator');
 const auth = require('../middleware/auth');
 
 const User = require('../models/User');
@@ -39,9 +39,9 @@ router.post('/', [
 
     try {
         let user = await User.findOne({email});
-
+        console.log(user);
         if (!user) {
-            return res.status(400).json('Invalid credentials, there is no user associated with this email');
+            return res.status(400).json({message: 'Invalid credentials, there is no user associated with this email'});
         }
 
         const isMatch = await bcrypt.compare(password, user.password); // Compares the user's plaintext password to its encrypted password, determines if they are a match
